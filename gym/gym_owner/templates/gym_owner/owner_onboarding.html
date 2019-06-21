@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Register</title>
+</head>
+<body>
+    <h2>Sign Up  - {{ title }} </h2>
+
+
+    {% if userform.errors %}
+    {% for field in userform %}
+    {% for error in field.errors %}
+    <div class="alert alert-danger">
+        <strong>{{ error|escape }}</strong>
+    </div>
+    {% endfor %}
+    {% endfor %}
+    {% for error in userform.non_field_errors %}
+    <div class="alert alert-danger">
+        <strong>{{ error|escape }}</strong>
+    </div>
+    {% endfor %}
+    {% endif %}
+
+
+    {% if ownerForm.errors %}
+    {% for field in ownerForm %}
+    {% for error in field.errors %}
+    <div class="alert alert-danger">
+        <strong>{{ error|escape }}</strong>
+    </div>
+    {% endfor %}
+    {% endfor %}
+    {% for error in ownerForm.non_field_errors %}
+    <div class="alert alert-danger">
+        <strong>{{ error|escape }}</strong>
+    </div>
+    {% endfor %}
+    {% endif %}
+    
+    
+    <form method="post">
+        {% csrf_token %}
+        {{ ownerForm.first_name.label }}
+        {{ ownerForm.first_name }}
+        <br><br>
+        {{ ownerForm.last_name.label }}
+        {{ ownerForm.last_name }}
+        <br><br>
+        {{ ownerForm.email.label }}
+        {{ ownerForm.email }}
+        <br><br>
+        {{ userForm.password.label }}
+        {{ userForm.password }}
+        <br><br>
+        {{ addressForm.as_p }}
+        <br><br>
+        <!-- {{ ownerForm.gym.label }}
+        {{ ownerForm.gym }}
+        <br><br>
+        {{ ownerForm.address.label }}
+        {{ ownerForm.address }}
+        <br><br> -->
+        {{ ownerForm.contact.label }}
+        {{ ownerForm.contact }}
+        <br><br>    
+        {{ ownerForm.aadhar.label }}
+        {{ ownerForm.aadhar }}
+        <br><br>
+        {{ ownerForm.pan.label }}
+        {{ ownerForm.pan }}
+        <br><br>
+        {{ ownerForm.gender.label }}
+        {{ ownerForm.gender }}
+        <br><br>
+        {{ ownerForm.profile_photo.label }}
+        {{ ownerForm.profile_photo }}
+        <br><br>
+        <!-- {{ userform.as_p }}
+        {{ ownerForm.as_p }} -->
+        <!-- {{ form.as_p }} -->
+        <button type="submit">Sign up</button>
+    </form>
+</body>
+</html>

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Gym , Address, Owner, Equipmet_MT , Equipment_Details, Category_MT, Diet
+from .models import Gym, Address, Owner, Equipmet_MT, Equipment_Details, Category_MT, Diet
 
 # Register your models here.
 admin.site.register(Address)

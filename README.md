@@ -41,6 +41,9 @@ Apply the following steps to replicate the environment.
     ```
     python manage.py runserver 0.0.0.0:8000
     ```
+    
+* Go to /owner/registration and create new user + gym. 
+  For other artifacts, use the admin panel for now
 
 ### Status
 

@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Customer Profile View </title>
+</head>
+<body>
+<h2> My Profile </h2>
+<ul>Email_ID:   {{ user.email}}</ul>
+<ul>First_Name:  {{ user.first_name}}</ul>
+<ul>Last_Name:  {{ user.last_name}}</ul>
+<ul> Building:  {{ customer_address.building }}</ul>
+<ul> Street:  {{ customer_address.street }}</ul>
+<ul> Building:  {{ customer_address.building }}</ul>
+<ul> Street:  {{ customer_address.street }}</ul>
+<ul> City:  {{ customer_address.city }}</ul>
+<ul> State:  {{ customer_address.state }}</ul>
+<ul> Country:  {{ customer_address.country }}</ul>
+<ul> Contact:  {{ customer_profile.contact }}</ul>
+<ul> Date of Birth:  {{ customer_profile.dob }}</ul>
+<ul> Gender:  {{ customer_profile.gender }}</ul>
+<ul> Aadhar Number:  {{ customer_profile.aadhar }}</ul>
+<ul> Pan Number:  {{ customer_profile.pan }}</ul>
+<ul> ProfilePhoto:  {{ customer_profile.profile_photo.url }}</ul>
+<ul> ProfilePhoto:  {{ customer_profile.profile_photo.path }}</ul>
+
+{#the profile photo section has to changed#}
+<img src=" {% static   customer_profile.profile_photo.url %} " alt="Profile-Photo">
+
+</body>
+</html>

@@ -13,6 +13,7 @@ class Customer(BaseModel):
     # User model
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     address = models.OneToOneField(Address, on_delete=models.CASCADE)
+
     contact = models.BigIntegerField(null=False)
     aadhar = models.BigIntegerField(null=False)
     pan = models.CharField(max_length=20)

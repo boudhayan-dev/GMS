@@ -54,6 +54,8 @@ def customer_profile_view(request):
             'customer_address': address_obj
         }
         return render(request, 'gym_customer/customer_profile_view.html', context)
+        # return render(request, 'gym_customer/base.html', context)
+
     else:  # else part has to be re-written
         return HttpResponse("INVALID REQUEST")
 
@@ -82,3 +84,7 @@ def customer_profile_edit(request):
         'address_form': address_form
     }
     return render(request,'gym_customer/customer_profile_edit.html', context)
+
+def menu(request):
+
+    return render(request, 'gym_customer/base.html', {})

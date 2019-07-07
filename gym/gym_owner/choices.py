@@ -77,3 +77,11 @@ GENDER_CHOICES = (
     ('female', 'Female'),
     ('others', 'Others'),
 )
+
+SHIFT_CHOICES = (
+    ('breakfast', 'Breakfast'),
+    ('lunch', 'Lunch'),
+    ('dinner', 'Dinner'),
+    ('pre-workout', 'Pre-workout'),
+    ('post-workout', 'Post-workout'),
+)

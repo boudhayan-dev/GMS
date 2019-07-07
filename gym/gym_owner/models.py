@@ -2,7 +2,7 @@ from django.conf import settings
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
-from .choices import STATE_CHOICES, GENDER_CHOICES
+from .choices import STATE_CHOICES, GENDER_CHOICES, SHIFT_CHOICES
 # importing signals
 from django.dispatch import receiver
 from django.db.models.signals import post_save
@@ -43,9 +43,9 @@ class Gym(BaseModel):
 
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=30, null=False, blank=False)
-    contact = models.BigIntegerField(null=False, blank=False)
-    gst_number = models.BigIntegerField(null=False, blank=False, default=None)
-    email = models.CharField(max_length=30, null=True, blank=True)
+    contact = models.BigIntegerField(null=False, blank=False, unique=True)
+    gst_number = models.BigIntegerField(null=False, blank=False, default=None, unique=True)
+    email = models.CharField(max_length=30, null=True, blank=True, unique=True)
 
     address = models.OneToOneField('Address', on_delete=models.CASCADE)
 
@@ -71,12 +71,12 @@ class Owner(BaseModel):
     # So that we can make these field mandatory. User class does not make them
     # mandatory
     first_name = models.CharField(
-        max_length=20,
+        max_length=25,
         null=False,
         blank=False,
         default="")
     last_name = models.CharField(
-        max_length=20,
+        max_length=25,
         null=False,
         blank=False,
         default="")
@@ -84,16 +84,19 @@ class Owner(BaseModel):
         max_length=30,
         null=False,
         blank=False,
-        default="")
+        default="",
+        unique=True)
 
     gym = models.ForeignKey(Gym, on_delete=models.CASCADE)
     # User model
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     address = models.OneToOneField('Address', on_delete=models.CASCADE)
 
-    contact = models.CharField(max_length=10, null=False, blank=False)
-    aadhar = models.CharField(max_length=10, null=False, blank=False)
-    pan = models.CharField(max_length=20, null=False, blank=False)
+    contact = models.CharField(
+        max_length=10, null=False, blank=False, unique=True)
+    aadhar = models.CharField(
+        max_length=10, null=False, blank=False, unique=True)
+    pan = models.CharField(max_length=20, null=False, blank=False, unique=True)
     dob = models.DateTimeField(null=True)
     gender = models.CharField(
         max_length=10,
@@ -159,13 +162,6 @@ class Category_MT(BaseModel):
 
 
 class Diet(BaseModel):
-    SHIFT_CHOICES = (
-        ('breakfast', 'Breakfast'),
-        ('lunch', 'Lunch'),
-        ('dinner', 'Dinner'),
-        ('pre-workout', 'Pre-workout'),
-        ('post-workout', 'Post-workout'),
-    )
 
     gym = models.ForeignKey(Gym, on_delete=models.CASCADE)
     id = models.AutoField(primary_key=True)
@@ -180,6 +176,5 @@ class Diet(BaseModel):
 
     def __str__(self):
         return f'{self.name} - {self.category} - {self.shift}'
-
     class Meta:
         verbose_name_plural = "Diet"

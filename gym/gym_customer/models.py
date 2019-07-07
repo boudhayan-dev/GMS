@@ -16,7 +16,7 @@ class Customer(BaseModel):
 
     contact = models.BigIntegerField(null=False)
     aadhar = models.BigIntegerField(null=False)
-    pan = models.CharField(max_length=20)
+    pan = models.CharField(max_length=30)
     dob = models.DateTimeField(null=False)
     gender = models.CharField(
         max_length=10,
@@ -30,7 +30,7 @@ class Customer(BaseModel):
         blank=True)
 
     def __str__(self):
-        return f'{self.user.first_name} {self.user.last_name}'
+        return f'Customer'
 
     class Meta:
         verbose_name_plural = "Customer"
@@ -41,7 +41,7 @@ class Diet_Subscription(BaseModel):
     diet = models.ForeignKey(Diet, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{self.customer.first_name} {self.customer.last_name} subscribed to : {self.diet.name} diet plan'
+        return f'diet plan'
 
     class Meta:
         verbose_name_plural = "Diet_Subscription"

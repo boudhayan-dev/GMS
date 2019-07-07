@@ -178,10 +178,16 @@ def owner_registration(request):
             if gymForm.is_valid() and gymAddressForm.is_valid():
                 request.session['gymForm'] = gymForm.cleaned_data
                 request.session['gymAddressForm'] = gymAddressForm.cleaned_data
-                return redirect('signup')
+                return redirect('registration')
             else:
                 return render(request,
                               'gym_owner/gym_onboarding.html',
                               {'gymForm': gymForm,
                                'gymAddressForm': gymAddressForm,
                                'title': 'Gym Details'})
+
+
+@login_required(login_url='my-profile')
+def owner_profile(request):
+    return "Profile"
+    

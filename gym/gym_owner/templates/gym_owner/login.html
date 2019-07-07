@@ -8,6 +8,15 @@
 </head>
 <body>
     <h2>Login</h2>
+
+    {% if messages %}
+        Uh hoh !
+        {% for message in messages %}
+            <span>{{ message }}</span>
+        {% endfor %}
+    {% endif %}
+
+
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}

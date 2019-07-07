@@ -25,7 +25,8 @@ class Customer(BaseModel):
         default=None)
 
     profile_photo = models.ImageField(
-        upload_to='static/images/gym_customer/profile',
+        # upload_to='static/images/gym_customer/profile',
+        upload_to='gym_customer/profile',
         null=True,
         blank=True)
 

@@ -106,7 +106,8 @@ class Owner(BaseModel):
         blank=True)
 
     profile_photo = models.ImageField(
-        upload_to='static/images/gym_owner/profile',
+        # upload_to='static/images/gym_owner/profile',
+        upload_to='gym_owner/profile',
         null=True,
         blank=True)
 

@@ -10,3 +10,6 @@ urlpatterns = [
     path('registration', views.owner_registration, name='registration'),
     path('my-profile', views.owner_profile, name='my-profile'),
 ]
+
+
+

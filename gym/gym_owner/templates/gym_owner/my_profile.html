@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>My Profile</title>
+</head>
+<body>
+        {% if user.owner.profile_photo %}
+            <img src="{{ user.owner.profile_photo.url }}" alt="User Profile Photo">
+        {% else %}
+            <img src="/media/gym_owner/profile/deafult.png" alt="User Profile Photo">
+        {% endif %}
+        
+
+        <h2>{{ user.owner.first_name }}  {{ user.owner.last_name }}</h2>
+        <span>Owner of - {{ user.owner.gym }} gym</span><br><br>
+        <ul>
+            <li>Phone number - {{ user.owner.contact }}</li><br>
+            <li>Email - {{ user.owner.email }}</li><br>
+            <li>Address - {{ user.owner.address }}</li><br>
+            <li>Aadhar - {{ user.owner.aadhar }}</li><br>
+            <li>PAN - {{ user.owner.pan }}</li><br>
+            <li>Gender - {{ user.owner.gender }}</li><br>
+            
+        </ul>
+</body>
+</html>

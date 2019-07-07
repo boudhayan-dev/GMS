@@ -2,11 +2,14 @@ from django.shortcuts import render, redirect
 from .models import Gym
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
+from django.http import HttpResponse,HttpResponseRedirect
 
 from django.contrib.auth import login, authenticate, logout
 
 from .forms import OwnerForm, UserForm, AddressForm, LoginForm, GymForm
 from django.contrib.auth.forms import UserCreationForm
+
+from django.contrib import messages
 
 # Create your views here.
 
@@ -21,8 +24,8 @@ def gym_list(request):
 
 @login_required(login_url='login')
 def owner_dashboard(request):
-    user = request.user
-    return render(request, 'gym_owner/dashboard.html', {'user': user})
+    # user = request.user
+    return render(request, 'gym_owner/dashboard.html')
 
 
 # Login view for owner
@@ -38,12 +41,17 @@ def owner_login(request):
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
             user = authenticate(username=username, password=password)
-            if user is not None:
-                print(user.email)
+            # Check for Owner
+            # The following condition will result true only if the user is also owner
+            # message is Django framework to send mesages to templates
+            if (user is not None) and hasattr(user,'owner'):
+                # print(user.email)
                 login(request, user)
                 return redirect('dashboard')
             else:
-                print('Invalid User ')
+                # print('Invalid User ')
+                messages.error(request,"Gym owner does not exist !")
+                return render(request, 'gym_owner/login.html', {'form': form})
         else:
             return render(request, 'gym_owner/login.html', {'form': form})
 
@@ -189,5 +197,6 @@ def owner_registration(request):
 
 @login_required(login_url='my-profile')
 def owner_profile(request):
-    return "Profile"
+    # return "Profile"
+    return render(request,"gym_owner/my_profile.html")
     

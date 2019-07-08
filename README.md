@@ -5,7 +5,7 @@ Apply the following steps to replicate the environment.
 * Clone repo 
 
     ```
-    git clone <<link>>
+    git clone https://github.com/boudhayan-dev/GMS
     cd GMS
     ```
 
@@ -55,4 +55,5 @@ Apply the following steps to replicate the environment.
 * /owner/login - Login View
 * /owner/logout - Logout view
 * /owner/registration - Gym and Owner onboarding
+* /owner/my-profile - Owner Profile (view/update)
 

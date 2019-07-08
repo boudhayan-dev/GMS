@@ -7,6 +7,8 @@ from .choices import STATE_CHOICES, GENDER_CHOICES, SHIFT_CHOICES
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 
+from PIL import Image
+
 
 class BaseModel(models.Model):
     is_delete = models.IntegerField(null=False, default=0)
@@ -108,8 +110,19 @@ class Owner(BaseModel):
     profile_photo = models.ImageField(
         # upload_to='static/images/gym_owner/profile',
         upload_to='gym_owner/profile',
+        default='gym_owner/profile/default.png',
         null=True,
         blank=True)
+    
+    # Process the profile photo before uploading
+    def save(self):
+        super().save()
+        if self.profile_photo:
+            img = Image.open(self.profile_photo.path)
+            if img.height > 100 or img.width > 100:
+                output_size = (400,400)
+                img.thumbnail(output_size, Image.ANTIALIAS)
+                img.save(self.profile_photo.path)
 
     def __str__(self):
         return f'{self.user.first_name} {self.user.last_name}'

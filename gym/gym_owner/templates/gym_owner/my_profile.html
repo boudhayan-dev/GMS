@@ -17,9 +17,7 @@
 
         <br><br>
         {% if user.owner.profile_photo %}
-            <img src="{{ user.owner.profile_photo.url }}" alt="User Profile Photo">
-        {% else %}
-            <img src="/media/gym_owner/profile/deafult.png" alt="User Profile Photo">
+            <img src="{{ user.owner.profile_photo.url }}" alt="User Profile Photo" >
         {% endif %}
 
         <h2>{{ user.owner.first_name }} {{ user.owner.last_name }}</h2>

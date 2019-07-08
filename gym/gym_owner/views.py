@@ -6,7 +6,7 @@ from django.http import HttpResponse,HttpResponseRedirect
 
 from django.contrib.auth import login, authenticate, logout
 
-from .forms import OwnerForm, UserForm, AddressForm, LoginForm, GymForm
+from .forms import OwnerForm, UserForm, AddressForm, LoginForm, GymForm, OwnerUpdateForm, AddressUpdateForm
 from django.contrib.auth.forms import UserCreationForm
 
 from django.contrib import messages
@@ -196,7 +196,43 @@ def owner_registration(request):
 
 
 @login_required(login_url='my-profile')
+@transaction.atomic
 def owner_profile(request):
     # return "Profile"
-    return render(request,"gym_owner/my_profile.html")
+    if request.method == 'POST':
+        addressUpdateForm = AddressUpdateForm(request.POST, instance=request.user.owner.address)
+        ownerUpdateForm = OwnerUpdateForm(request.POST, request.FILES, instance=request.user.owner)
+
+        if ownerUpdateForm.is_valid() and addressUpdateForm.is_valid():
+            # Changing the email in the User model
+
+            address = addressUpdateForm.save()
+            address.save()
+            address.refresh_from_db()
+
+
+            user = request.user
+            user.first_name = ownerUpdateForm.cleaned_data.get('first_name')
+            user.last_name = ownerUpdateForm.cleaned_data.get('last_name')
+            user.username = ownerUpdateForm.cleaned_data.get('email')
+            user.email = ownerUpdateForm.cleaned_data.get('email')
+            user.save()
+            user.refresh_from_db()
+
+            owner = ownerUpdateForm.save(commit=False)
+            # owner.address = address
+            owner.save()
+
+            messages.success(request, f'Your profile has been successfully updated!')
+            return redirect('my-profile')
+        
+        else:
+            return render(request, "gym_owner/my_profile.html", {'ownerUpdateForm': ownerUpdateForm, 'addressUpdateForm': addressUpdateForm})
+
+
+    if request.method == 'GET':
+        addressUpdateForm = AddressUpdateForm(
+            instance=request.user.owner.address)
+        ownerUpdateForm = OwnerUpdateForm(instance=request.user.owner)
+        return render(request, "gym_owner/my_profile.html", {'ownerUpdateForm': ownerUpdateForm, 'addressUpdateForm': addressUpdateForm})
     

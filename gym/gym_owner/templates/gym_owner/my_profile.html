@@ -7,16 +7,70 @@
     <title>My Profile</title>
 </head>
 <body>
+
+        {% if messages %}
+        {% for message in messages %}
+        <span>{{ message }}</span>
+        {% endfor %}
+        {% endif %}
+
+
+        <br><br>
         {% if user.owner.profile_photo %}
             <img src="{{ user.owner.profile_photo.url }}" alt="User Profile Photo">
         {% else %}
             <img src="/media/gym_owner/profile/deafult.png" alt="User Profile Photo">
         {% endif %}
+
+        <h2>{{ user.owner.first_name }} {{ user.owner.last_name }}</h2>
+        <span>Owner of - {{ user.owner.gym }} gym</span><br><br>
+        
         
 
-        <h2>{{ user.owner.first_name }}  {{ user.owner.last_name }}</h2>
-        <span>Owner of - {{ user.owner.gym }} gym</span><br><br>
-        <ul>
+        
+
+        {% if ownerUpdateForm.errors %}
+        {% for field in ownerUpdateForm %}
+        {% for error in field.errors %}
+        <div class="alert alert-danger">
+            <strong>{{ error|escape }}</strong>
+        </div>
+        {% endfor %}
+        {% endfor %}
+        {% for error in ownerUpdateForm.non_field_errors %}
+        <div class="alert alert-danger">
+            <strong>{{ error|escape }}</strong>
+        </div>
+        {% endfor %}
+        {% endif %}
+        
+        
+        {% if addressUpdateForm.errors %}
+        {% for field in addressUpdateForm %}
+        {% for error in field.errors %}
+        <div class="alert alert-danger">
+            <strong>{{ error|escape }}</strong>
+        </div>
+        {% endfor %}
+        {% endfor %}
+        {% for error in addressUpdateForm.non_field_errors %}
+        <div class="alert alert-danger">
+            <strong>{{ error|escape }}</strong>
+        </div>
+        {% endfor %}
+        {% endif %}
+
+
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ ownerUpdateForm.as_p }}
+            {{ addressUpdateForm.as_p }}
+            <button type="submit">Update</button>
+        </form>
+
+        
+        <!-- <ul>
             <li>Phone number - {{ user.owner.contact }}</li><br>
             <li>Email - {{ user.owner.email }}</li><br>
             <li>Address - {{ user.owner.address }}</li><br>
@@ -24,6 +78,6 @@
             <li>PAN - {{ user.owner.pan }}</li><br>
             <li>Gender - {{ user.owner.gender }}</li><br>
             
-        </ul>
+        </ul> -->
 </body>
 </html>

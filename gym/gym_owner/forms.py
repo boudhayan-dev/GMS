@@ -28,7 +28,21 @@ class OwnerForm(ModelForm):
                   'contact', 'aadhar', 'pan', 'gender', 'profile_photo')
 
 
+
+class OwnerUpdateForm(ModelForm):
+    class Meta:
+        model = Owner
+        fields = ('first_name', 'last_name', 'email',
+                  'contact', 'aadhar', 'pan', 'gender', 'profile_photo')
+
+
 class AddressForm(ModelForm):
+    class Meta:
+        model = Address
+        fields = ('building', 'street', 'city', 'state', 'country')
+
+
+class AddressUpdateForm(ModelForm):
     class Meta:
         model = Address
         fields = ('building', 'street', 'city', 'state', 'country')

@@ -1,11 +1,7 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Customer Profile View </title>
-</head>
-<body>
+{% extends 'gym_customer/base.html' %}
+
+{% block content %}
+
 <h2> My Profile </h2>
 <ul>Email_ID:   {{ user.email}}</ul>
 <ul>First_Name:  {{ user.first_name}}</ul>
@@ -26,7 +22,5 @@
 <ul> ProfilePhoto:  {{ customer_profile.profile_photo.path }}</ul>
 
 {#the profile photo section has to changed#}
-<img src=" {% static   customer_profile.profile_photo.url %} " alt="Profile-Photo">
-
-</body>
-</html>
+<img src=" {{ customer_profile.profile_photo.url }} " alt="Profile-Photo">
+{% endblock %}

@@ -5,6 +5,8 @@ from django.contrib.auth import login, authenticate, logout
 from .models import Customer
 from django.http import HttpResponse,HttpResponseRedirect
 from .forms import *
+from django.contrib.auth.models import User
+
 from gym_owner.forms import AddressForm
 # Create your views here.
 
@@ -21,6 +23,8 @@ def customer_login(request):
     if request.method == 'GET':
         form = LoginForm()
         return render(request, 'gym_customer/login.html', {'form': form})
+        # return render(request, 'gym_customer/base.html', {'form': form})
+
     if request.method == 'POST':
         form = LoginForm(request=request, data=request.POST)
         if form.is_valid():
@@ -35,6 +39,7 @@ def customer_login(request):
                 print('Invalid User ')
         else:
             return render(request, 'gym_customer/login.html', {'form': form})
+            # return render(request, 'gym_customer/base.html', {'form': form})
 
 
 def customer_logout(request):
@@ -46,10 +51,11 @@ def customer_logout(request):
 def customer_profile_view(request):
     if request.method == "GET":
         user = request.user
+        user_obj = User.objects.get(username=user)
         customer_obj = Customer.objects.get(user=user)
         address_obj = customer_obj.address
         context = {
-            'user': user,
+            'user': user_obj,
             'customer_profile': customer_obj,
             'customer_address': address_obj
         }
@@ -84,6 +90,8 @@ def customer_profile_edit(request):
         'address_form': address_form
     }
     return render(request,'gym_customer/customer_profile_edit.html', context)
+    # return render(request,'gym_customer/base.html', context)
+
 
 def menu(request):
 

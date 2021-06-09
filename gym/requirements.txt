@@ -1,5 +1,5 @@
 autopep8==1.4.4
-Django==2.2.2
+Django==2.2.22
 entrypoints==0.3
 mccabe==0.6.1
 Pillow==6.0.0
